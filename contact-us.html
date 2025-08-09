@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>Επικοινωνία - RG Studio Interactive</title>
+  <style>
+    body {
+      background: #181a20;
+      color: #fff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 600px;
+      margin: 80px auto 0 auto;
+      padding: 30px;
+      background: rgba(40,48,64,0.97);
+      border-radius: 12px;
+      box-shadow: 0 5px 24px rgba(0,0,0,0.17);
+      text-align: center;
+    }
+    h1 {
+      color: #4a90e2;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      letter-spacing: 1px;
+    }
+    p {
+      margin-bottom: 30px;
+      font-size: 1.1rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: stretch;
+    }
+    input, textarea {
+      font-size: 1.1rem;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      outline: none;
+      background: #22242c;
+      color: #fff;
+    }
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+    button {
+      background: #4a90e2;
+      color: #fff;
+      padding: 13px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #357abd;
+    }
+    .logo {
+      width: 120px;
+      opacity: 0.93;
+      margin-bottom: 25px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="assets/images/RG-Studio-Interactive-light-logo.png" alt="RG Studio Interactive logo" class="logo">
+    <h1>Επικοινωνήστε μαζί μας</h1>
+    <p>Συμπληρώστε τη φόρμα ή στείλτε απευθείας email στο <b>rgstudiointeractive@gmail.com</b>.</p>
+    <form action="https://formspree.io/f/xanblqnw" method="POST">
+      <input type="text" name="name" placeholder="Όνομα" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <textarea name="message" placeholder="Το μήνυμά σας" required></textarea>
+      <button type="submit">Αποστολή</button>
+    </form>
+    <script>
+      window.addEventListener("DOMContentLoaded", function() {
+        var form = document.querySelector("form");
+        form.addEventListener("submit", function(e) {
+          e.preventDefault();
+          var data = new FormData(form);
+          fetch(form.action, {
+            method: form.method,
+            body: data,
+            headers: {
+              'Accept': 'application/json'
+            }
+          }).then(response => {
+            if (response.ok) {
+              form.innerHTML = "<p style='color:#4a90e2;font-size:1.2rem;'>Ευχαριστούμε! Το μήνυμά σας εστάλη με επιτυχία.</p>";
+            } else {
+              form.innerHTML = "<p style='color:red;font-size:1.1rem;'>Παρουσιάστηκε πρόβλημα. Δοκιμάστε ξανά αργότερα.</p>";
+            }
+          });
+        });
+      });
+    </script>
+  </div>
+</body>
+</html>
