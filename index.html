@@ -520,15 +520,26 @@
   </div>
 
   <script>
-    // Carousel Navigation
-    document.querySelectorAll('.carousel-nav').forEach(btn => {
+    const carousel = document.querySelector('.carousel');
+    const buttons = document.querySelectorAll('.carousel-nav');
+  
+    buttons.forEach(btn => {
       btn.addEventListener('click', () => {
-        const carousel = document.querySelector('.carousel');
-        const scrollAmount = carousel.offsetWidth * 0.9; 
-        carousel.scrollBy({ left: btn.classList.contains('next') ? scrollAmount : -scrollAmount, behavior: 'smooth' });
+        const viewport = carousel.clientWidth;
+        const maxScrollLeft = carousel.scrollWidth - viewport;
+        const dir = btn.classList.contains('next') ? 1 : -1;
+  
+        // target by page
+        let target = carousel.scrollLeft + dir * viewport;
+  
+        // clamp to valid range
+        target = Math.max(0, Math.min(target, maxScrollLeft));
+  
+        carousel.scrollTo({ left: target, behavior: 'smooth' });
       });
     });
   </script>
+
 
   <div class="info-panel">
     <h2>Γιατί να Επιλέξετε την Εφαρμογή μας;</h2>
